@@ -61,6 +61,15 @@
 class mint14 {
 
   ##############################################################################
+  # Set defaults for all Files
+  ##############################################################################
+
+  File {
+    owner      => root,
+    group      => root,
+  }
+
+  ##############################################################################
   # Security sensitive and snapshot repositories.  These are always the latest
   # for security reasons or because they change so fast.
   ##############################################################################
@@ -168,29 +177,22 @@ class mint14 {
   }
   file { '/etc/fuse.conf':
     source     => 'puppet:///modules/mint14/common/etc/fuse.conf',
-    owner      => root,
     group      => fuse,
     mode       => '0640',
     require    => Package['fuse'],
   }
   file { '/etc/security/pam_env.conf':
     source     => 'puppet:///modules/mint14/common/etc/security/pam_env.conf',
-    owner      => root,
-    group      => root,
     mode       => '0644',
     require    => [ Package['libpam-encfs'], Package['encfs'] ],
   }
   file { '/etc/security/pam_encfs.conf':
     source     => 'puppet:///modules/mint14/common/etc/security/pam_encfs.conf',
-    owner      => root,
-    group      => root,
     mode       => '0644',
     require    => [ Package['libpam-encfs'], Package['encfs'] ],
   }
   file { '/etc/pam.d/common-session':
     source     => 'puppet:///modules/mint14/common/etc/pam.d/common-session',
-    owner      => root,
-    group      => root,
     mode       => '0644',
     require    => [ Package['libpam-encfs'], Package['encfs'] ],
   }
@@ -627,20 +629,14 @@ class mint14 {
   }
   file { '/usr/lib64/libaacs.so.0':
     source     => 'puppet:///modules/mint14/common/usr/lib64/libaacs.so.0',
-    owner      => root,
-    group      => root,
     mode       => '0644',
   }
   file { '/etc/skel/.config':
     ensure    => directory,
-    owner     => root,
-    group     => root,
     mode      => '0755',
   }
   file { '/etc/skel/.config/aacs':
     ensure    => directory,
-    owner     => root,
-    group     => root,
     recurse   => true,
     purge     => true,
     mode      => '0755',
@@ -689,22 +685,16 @@ class mint14 {
   }
   file { '/etc/ssh/sshd_config':
     source     => 'puppet:///modules/mint14/common/etc/ssh/sshd_config',
-    owner      => root,
-    group      => root,
     mode       => '0640',
     notify     => Service['ssh'],
     require    => Package['openssh-server'],
   }
   file { '/root/.ssh':
     ensure    => directory,
-    owner     => root,
-    group     => root,
     mode      => '0700',
   }
   file { '/root/.ssh/authorized_keys':
     source     => 'puppet:///modules/mint14/common/root/.ssh/authorized_keys',
-    owner      => root,
-    group      => root,
     mode       => '0600',
     require    => File['/root/.ssh'],
   }
@@ -726,15 +716,11 @@ class mint14 {
     ensure     => installed,
   }
   file { '/etc/idmapd.conf':
-    owner      => root,
-    group      => root,
     mode       => '0644',
     source     => 'puppet:///modules/mint14/common/etc/idmapd.conf',
     require    => Package['nfs-common'],
   }
   file { '/etc/default/nfs-common':
-    owner      => root,
-    group      => root,
     mode       => '0644',
     source     => 'puppet:///modules/mint14/common/etc/default/nfs-common',
     require    => Package['nfs-common'],
@@ -746,8 +732,6 @@ class mint14 {
 
   file { '/usr/share/pixmaps/faces':
     ensure    => directory,
-    owner     => root,
-    group     => root,
     recurse   => true,
     purge     => false,
     mode      => '0644',
@@ -760,8 +744,6 @@ class mint14 {
 
   file { '/usr/share/mdm/themes/Doe-GDM':
     ensure    => directory,
-    owner     => root,
-    group     => root,
     recurse   => true,
     purge     => true,
     mode      => '0755',
@@ -769,8 +751,6 @@ class mint14 {
   }
   file { '/etc/mdm/mdm.conf':
     source     => 'puppet:///modules/mint14/common/etc/mdm/mdm.conf',
-    owner      => root,
-    group      => root,
     mode       => '0644',
   }
 
@@ -783,8 +763,6 @@ class mint14 {
     recurse    => true,
     purge      => false,
     source     => 'puppet:///modules/mint14/common/usr/local/bin',
-    owner      => root,
-    group      => root,
     mode       => '0755',
   }
 
@@ -794,8 +772,6 @@ class mint14 {
 
   file { '/usr/local/puppet-pkgs':
     ensure    => directory,
-    owner     => root,
-    group     => root,
     recurse   => true,
     purge     => true,
     mode      => '0755',
@@ -820,8 +796,6 @@ class mint14 {
 
   file { '/usr/lib64':
     ensure    => directory,
-    owner     => root,
-    group     => root,
     mode      => '0755',
   }
   package { 'cackey':
@@ -837,8 +811,6 @@ class mint14 {
 
   file { '/usr/local/scm':
     ensure    => directory,
-    owner     => root,
-    group     => root,
     recurse   => true,
     purge     => true,
     source    => 'puppet:///modules/mint14/common/usr/local/scm',
@@ -846,8 +818,6 @@ class mint14 {
 
   file { '/usr/local/pcsc':
     ensure    => directory,
-    owner     => root,
-    group     => root,
     recurse   => true,
     purge     => true,
     source    => 'puppet:///modules/mint14/common/usr/local/pcsc',
@@ -855,8 +825,6 @@ class mint14 {
 
   file { '/usr/local/lib/pcsc':
     ensure    => directory,
-    owner     => root,
-    group     => root,
     recurse   => true,
     purge     => true,
     source    => 'puppet:///modules/mint14/common/usr/local/lib/pcsc',
@@ -868,36 +836,26 @@ class mint14 {
 
   file { '/usr/bin/truecrypt':
     source     => 'puppet:///modules/mint14/common/usr/bin/truecrypt',
-    owner      => root,
-    group      => root,
     mode       => '0755',
   }
 
   file { '/usr/bin/truecrypt-uninstall.sh':
     source     => 'puppet:///modules/mint14/common/usr/bin/truecrypt-uninstall.sh',
-    owner      => root,
-    group      => root,
     mode       => '0754',
   }
 
   file { '/usr/share/applications/truecrypt.desktop':
     source     => 'puppet:///modules/mint14/common/usr/share/applications/truecrypt.desktop',
-    owner      => root,
-    group      => root,
     mode       => '0644',
   }
 
   file { '/usr/share/pixmaps/truecrypt.xpm':
     source     => 'puppet:///modules/mint14/common/usr/share/pixmaps/truecrypt.xpm',
-    owner      => root,
-    group      => root,
     mode       => '0644',
   }
 
   file { '/usr/share/truecrypt':
     ensure    => directory,
-    owner     => root,
-    group     => root,
     recurse   => true,
     purge     => true,
     mode      => '0644',
@@ -932,8 +890,6 @@ class mint14::silverstone {
   }
 
   file { '/etc/cron.daily/rollingsnap':
-    owner      => root,
-    group      => root,
     mode       => '0755',
     source     => 'puppet:///modules/mint14/silverstone/etc/cron.daily/rollingsnap',
   }
@@ -946,8 +902,6 @@ class mint14::coolermaster {
   ##############################################################################
 
   file { '/etc/auto.master':
-    owner      => root,
-    group      => root,
     mode       => '0644',
     source     => 'puppet:///modules/mint14/coolermaster/etc/auto.master',
     notify     => Service['autofs'],
@@ -955,8 +909,6 @@ class mint14::coolermaster {
   }
 
   file { '/etc/auto.home':
-    owner      => root,
-    group      => root,
     mode       => '0644',
     source     => 'puppet:///modules/mint14/coolermaster/etc/auto.home',
     notify     => Service['autofs'],
