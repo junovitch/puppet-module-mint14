@@ -778,8 +778,11 @@ class mint14 {
   # Scripts present on all systems
   ##############################################################################
 
-  file { '/usr/local/bin/kvm.pl':
-    source     => 'puppet:///modules/mint14/common/usr/local/bin/kvm.pl',
+  file { '/usr/local/bin':
+    ensure     => directory,
+    recurse    => true,
+    purge      => false,
+    source     => 'puppet:///modules/mint14/common/usr/local/bin',
     owner      => root,
     group      => root,
     mode       => '0755',
